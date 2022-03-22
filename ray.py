@@ -13,7 +13,7 @@ class Ray:
         self.origin = origin
 
     def closestHitDistance(self, boundaries):
-        closestDist = max(config.displaySize[0], config.displaySize[1]) * 2.0
+        closestDist = max(config.displayLength2D, config.displayHeight) * 2.0
         closestX = (closestDist * np.cos(self.angle)) + self.origin[0]
         closestY = (closestDist * np.sin(self.angle)) + self.origin[1]
 
