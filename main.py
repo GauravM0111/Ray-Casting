@@ -12,7 +12,6 @@ startAngle = 0
 
 # boundary properties
 numBoundaries = 5
-outerBoundaryOffset = 10
 
 # ray source properties
 raySourceAngleOffset = 1
@@ -37,12 +36,14 @@ for i in range(numBoundaries):
     boundary = Boundary(x1, y1, x2, y2)
     boundaries.append(boundary)
 
-lbond = Boundary(outerBoundaryOffset, outerBoundaryOffset, outerBoundaryOffset, config.displayHeight-outerBoundaryOffset)
-rbond = Boundary(config.displayLength2D-outerBoundaryOffset, outerBoundaryOffset, config.displayLength2D-outerBoundaryOffset, config.displayHeight-outerBoundaryOffset)
-bbond = Boundary(outerBoundaryOffset, config.displayHeight-outerBoundaryOffset, config.displayLength2D-outerBoundaryOffset, config.displayHeight-outerBoundaryOffset)
-tbond = Boundary(outerBoundaryOffset, outerBoundaryOffset, config.displayLength2D-outerBoundaryOffset, outerBoundaryOffset)
+lbond = Boundary(config.outerBoundaryOffset, config.outerBoundaryOffset, config.outerBoundaryOffset, config.displayHeight-config.outerBoundaryOffset)
+rbond2D = Boundary(config.displayLength2D-config.outerBoundaryOffset, config.outerBoundaryOffset, config.displayLength2D-config.outerBoundaryOffset, config.displayHeight-config.outerBoundaryOffset)
+rbond3D = Boundary(config.displayFullLength-config.outerBoundaryOffset, config.outerBoundaryOffset, config.displayFullLength-config.outerBoundaryOffset, config.displayHeight-config.outerBoundaryOffset)
+bbond = Boundary(config.outerBoundaryOffset, config.displayHeight-config.outerBoundaryOffset, config.displayFullLength-config.outerBoundaryOffset, config.displayHeight-config.outerBoundaryOffset)
+tbond = Boundary(config.outerBoundaryOffset, config.outerBoundaryOffset, config.displayFullLength-config.outerBoundaryOffset, config.outerBoundaryOffset)
 boundaries.append(lbond)
-boundaries.append(rbond)
+boundaries.append(rbond2D)
+boundaries.append(rbond3D)
 boundaries.append(bbond)
 boundaries.append(tbond)
 
@@ -69,13 +70,13 @@ while running:
     # 2D
     # movement
     key_input = pygame.key.get_pressed()
-    if key_input[pygame.K_w] and yPos >= (outerBoundaryOffset + velocity):
+    if key_input[pygame.K_w] and yPos >= (config.outerBoundaryOffset + velocity):
         yPos -= velocity
-    if key_input[pygame.K_a] and xPos >= (outerBoundaryOffset + velocity):
+    if key_input[pygame.K_a] and xPos >= (config.outerBoundaryOffset + velocity):
         xPos -= velocity
-    if key_input[pygame.K_s] and yPos <= (config.displayHeight - (outerBoundaryOffset + velocity)):
+    if key_input[pygame.K_s] and yPos <= (config.displayHeight - (config.outerBoundaryOffset + velocity)):
         yPos += velocity
-    if key_input[pygame.K_d] and xPos <= (config.displayLength2D - (outerBoundaryOffset + velocity)):
+    if key_input[pygame.K_d] and xPos <= (config.displayLength2D - (config.outerBoundaryOffset + velocity)):
         xPos += velocity
         
     # rotation

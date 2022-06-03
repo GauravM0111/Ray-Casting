@@ -11,6 +11,7 @@ class Ray:
     def __init__(self, angle, origin=(0, 0)):
         self.angle = -math.radians(angle)
         self.origin = origin
+        self.closestDist = -1
 
     def closestHitDistance(self, boundaries):
         closestDist = max(config.displayLength2D, config.displayHeight) * 2.0
@@ -46,10 +47,13 @@ class Ray:
         return closestDist
 
     def draw(self, surface, boundaries):
-        closestDist = self.closestHitDistance(boundaries)
+        self.closestDist = self.closestHitDistance(boundaries)
 
-        x = closestDist * np.cos(self.angle)
-        y = closestDist * np.sin(self.angle)
+        x = self.closestDist * np.cos(self.angle)
+        y = self.closestDist * np.sin(self.angle)
         destCord = (x + self.origin[0], y + self.origin[1])
 
         pygame.draw.line(surface, config.white, self.origin, destCord)
+
+    def getClosestHitDist(self):
+        return self.closestDist
